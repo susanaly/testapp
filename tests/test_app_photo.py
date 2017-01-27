@@ -28,6 +28,7 @@ class TestFileFail(unittest.TestCase):
         app.debug = True
         app.request_class = MyRequest
         
+        # Test uploaded file
         @app.route("/uploader", methods=['POST'])
         def upload_file():
             f = request.files['file']

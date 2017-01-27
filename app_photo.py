@@ -5,7 +5,7 @@ Created on Wed Jan 25 15:17:41 2017
 @author: susanalaiyuen
 """
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
 
 UPLOAD_FOLDER = '/tmp/'
@@ -26,6 +26,7 @@ def allowed_file(filename):
 def main():
   return render_template('upload.html')
 
+# Display the image in template.html
 @app.route('/show/<filename>')
 def uploaded_file(filename):
     filename = 'http://127.0.0.1:5000/tmp/' + filename
@@ -34,17 +35,16 @@ def uploaded_file(filename):
 @app.route('/tmp/<filename>')
 def send_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-    
+ 
+# Check the file uploaded by user   
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']  
         # If user does not select a file
         if f.filename == '':
-            #flash('No file selected')
             return render_template('upload.html')
-            #return redirect(url_for('upload_file'))
-            #return redirect(request.url)
+            
         # If a file is selected that satisfies the extensions allowed,
         # display the image
         if f and allowed_file(f.filename):
