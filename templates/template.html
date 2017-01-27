@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Photo Upload</title>
+{% if filename %}
+   <h1>Selected photo </h1>
+   <div style="max-width:600px;">
+   	  <img src="{{filename}}" width="80%" height=auto>
+   </div>
+{% else %}
+   <h1>No photo selected</h1>
+{% endif %}
